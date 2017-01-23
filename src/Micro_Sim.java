@@ -16,7 +16,7 @@ public class Micro_Sim extends PApplet{
     }
 
     public void start() {
-        AddGameObject(new Organism());
+        AddGameObject(new Organism(this));
     }
 
     public void draw() {
@@ -26,5 +26,9 @@ public class Micro_Sim extends PApplet{
     public void AddGameObject(GameObject x) {
         x.Start();
         gameObjects.add(x);
+    }
+
+    public void RemoveGameObject(GameObject x) {
+        gameObjects.remove(x);
     }
 }
