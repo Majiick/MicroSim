@@ -24,6 +24,12 @@ public class Organism extends GameObject {
 
     }
 
+    public void AddDriver() {
+        GameObject driver = new Driver(processing, this);
+        processing.RemoveGameObject(grid.getContents().get(5).get(5));
+        grid.getContents().get(5).set(5, driver);
+    }
+
     public void Destroy() {
         processing.RemoveGameObject(this);
     }

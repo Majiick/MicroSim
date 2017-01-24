@@ -3,6 +3,7 @@
  */
 import processing.core.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Micro_Sim extends PApplet{
     Vector<GameObject> gameObjects = new Vector<>();
@@ -30,5 +31,17 @@ public class Micro_Sim extends PApplet{
 
     public void RemoveGameObject(GameObject x) {
         gameObjects.remove(x);
+    }
+
+    @Override
+    public void keyPressed() {
+        //List<Organism> organisms = gameObjects.stream().filter(g -> g instanceof Organism).collect(Collectors.toList());
+        //organisms.forEach(g -> g.AddDriver());
+
+        for (GameObject g : gameObjects) {
+            if (g instanceof Organism) {
+                ((Organism) g).AddDriver();
+            }
+        }
     }
 }

@@ -10,6 +10,7 @@ abstract public class GameObject {
     Point position = new Point(0, 0);
     GameObject parent = null;
     Micro_Sim processing;
+    String tag = "untagged";
 
     GameObject(Micro_Sim processing) {
         this.processing = processing;
@@ -31,4 +32,7 @@ abstract public class GameObject {
         return position;
     }
 
+    void OnCollisionEnter() {
+
+    }
 }

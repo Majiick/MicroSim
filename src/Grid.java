@@ -24,4 +24,8 @@ public class Grid {
             }
         }
     }
+
+    Vector<Vector<GameObject>> getContents() {
+        return contents;
+    }
 }

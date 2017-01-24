@@ -3,7 +3,7 @@ import java.awt.*;
 /**
  * Created by Ecoste on 1/23/2017.
  */
-public class Cytoplasm extends GameObject{
+public class Cytoplasm extends GameObject implements IComponent{
 
     Cytoplasm(Micro_Sim processing) {
         super(processing);
@@ -25,6 +25,10 @@ public class Cytoplasm extends GameObject{
     }
 
     public void Start() {
+
+    }
+
+    public void Trigger() {
 
     }
 }
