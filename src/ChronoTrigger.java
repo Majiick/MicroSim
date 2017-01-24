@@ -8,10 +8,11 @@ public class ChronoTrigger extends Trigger{
 
     ChronoTrigger(IComponent parent) {
         super(parent);
+        Start();
     }
 
     public void Start() {
-        timer.scheduleAtFixedRate(new ChronoTask(), 0, 100);
+        timer.scheduleAtFixedRate(new ChronoTask(), 0, 1000);
     }
 
     private class ChronoTask extends TimerTask {

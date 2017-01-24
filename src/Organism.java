@@ -5,6 +5,7 @@ import java.awt.Point;
 
 public class Organism extends GameObject {
 
+    Point moveTo;
     Grid grid = new Grid(new Point(7, 7), this);
 
     Organism(Micro_Sim processing) {
@@ -14,10 +15,16 @@ public class Organism extends GameObject {
     Organism(Micro_Sim processing, Point startingPosition) {
         super(processing);
         position = startingPosition;
+        moveTo = startingPosition;
     }
 
     public void Update() {
         //processing.rect(position.x, position.y, 100, 100);
+
+        Point newLoc = new Point(0, 0);
+        //newLoc.x = (int)Helper.Lerp((float)position.x, (float)moveTo.x, 0.1f);
+        //newLoc.y = (int)Helper.Lerp((float)position.y, (float)moveTo.y, 0.1f);
+        position = newLoc;
     }
 
     public void Start() {
@@ -30,6 +37,10 @@ public class Organism extends GameObject {
         grid.getContents().get(5).set(5, driver);
         processing.AddGameObject(driver);
         driver.SetPosition(new Point(5 * 5, 5 * 5));
+    }
+
+    public void MoveTo(Point p) {
+        moveTo = p;
     }
 
     public void Destroy() {
