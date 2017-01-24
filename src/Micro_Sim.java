@@ -35,13 +35,13 @@ public class Micro_Sim extends PApplet{
 
     @Override
     public void keyPressed() {
-        //List<Organism> organisms = gameObjects.stream().filter(g -> g instanceof Organism).collect(Collectors.toList());
-        //organisms.forEach(g -> g.AddDriver());
+        List<GameObject> organisms = gameObjects.stream().filter(g -> g instanceof Organism).collect(Collectors.toList());
+        organisms.forEach(g -> ((Organism) g).AddDriver());
 
-        for (GameObject g : gameObjects) {
-            if (g instanceof Organism) {
-                ((Organism) g).AddDriver();
-            }
-        }
+//        for (GameObject g : gameObjects) {
+//            if (g instanceof Organism) {
+//                ((Organism) g).AddDriver();
+//            }
+//        }
     }
 }
