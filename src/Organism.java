@@ -28,6 +28,8 @@ public class Organism extends GameObject {
         GameObject driver = new Driver(processing, this);
         processing.RemoveGameObject(grid.getContents().get(5).get(5));
         grid.getContents().get(5).set(5, driver);
+        processing.AddGameObject(driver);
+        driver.SetPosition(new Point(5 * 5, 5 * 5));
     }
 
     public void Destroy() {

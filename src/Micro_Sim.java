@@ -21,6 +21,7 @@ public class Micro_Sim extends PApplet{
     }
 
     public void draw() {
+        background(0);
         gameObjects.forEach((gameObject) -> gameObject.Update());
     }
 
