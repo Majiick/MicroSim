@@ -1,14 +1,13 @@
-/**
- * Created by Ecoste on 1/24/2017.
- */
 import java.awt.geom.Point2D;
-import java.util.*;
+import java.util.Vector;
 
-public class Driver extends GameObject implements IComponent {
-
+/**
+ * Created by Ecoste on 1/25/2017.
+ */
+public class Rotator extends GameObject implements IComponent {
     Vector<Trigger> triggers = new Vector<>();
 
-    Driver(Micro_Sim processing, GameObject parent) {
+    Rotator(Micro_Sim processing, GameObject parent) {
         super(processing);
         SetParent(parent);
     }
@@ -23,7 +22,7 @@ public class Driver extends GameObject implements IComponent {
         processing.rotate(processing.radians(parent.rotation + rotation));
         processing.translate(-parent.position.x,-parent.position.y);
 
-        processing.fill(processing.color(255, 0, 0));
+        processing.fill(processing.color(0, 0, 255));
         processing.rect(GetGlobalPosition().x, GetGlobalPosition().y, 5, 5);
 
         processing.popMatrix();
@@ -32,6 +31,6 @@ public class Driver extends GameObject implements IComponent {
     }
 
     public void Trigger() {
-        ((Organism)parent).Move(0, 20);
+        ((Organism)parent).Rotate(45);
     }
 }

@@ -7,6 +7,7 @@ import java.awt.geom.Point2D;
 abstract public class GameObject {
     abstract public void Update();
     abstract public void Start();
+    float rotation = 0;
 
     Point2D.Float position = new Point2D.Float(0, 0);
     GameObject parent = null;

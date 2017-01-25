@@ -40,6 +40,7 @@ public class Micro_Sim extends PApplet{
     public void keyPressed() {
         List<GameObject> organisms = gameObjects.stream().filter(g -> g instanceof Organism).collect(Collectors.toList());
         organisms.forEach(g -> ((Organism) g).AddDriver());
+        organisms.forEach(g -> ((Organism) g).AddRotator());
 
 //        for (GameObject g : gameObjects) {
 //            if (g instanceof Organism) {

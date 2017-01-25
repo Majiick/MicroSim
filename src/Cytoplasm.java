@@ -21,8 +21,16 @@ public class Cytoplasm extends GameObject implements IComponent{
     }
 
     public void Update() {
+        //This is a bit wonky but I'm not too familiar with processing.
+        processing.pushMatrix();
+        processing.translate(parent.position.x, parent.position.y);
+        processing.rotate(processing.radians(parent.rotation + rotation));
+        processing.translate(-parent.position.x,-parent.position.y);
+
         processing.fill(processing.color(0, 255, 0));
         processing.rect(GetGlobalPosition().x, GetGlobalPosition().y, 5, 5);
+
+        processing.popMatrix();
     }
 
     public void Start() {
