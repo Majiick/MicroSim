@@ -2,6 +2,7 @@
  * Created by Ecoste on 1/23/2017.
  */
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.*;
 
 public class Grid {
@@ -18,7 +19,7 @@ public class Grid {
 
             for(int y = 0; y < size.y; y++) {
                 GameObject cytoplasm = new Cytoplasm(parent.processing, parent);
-                cytoplasm.SetPosition(new Point(x * 5, y * 5));
+                cytoplasm.SetPosition(new Point2D.Float(x * 5, y * 5));
                 contents.get(x).add(cytoplasm);
                 parent.processing.AddGameObject(cytoplasm);
             }

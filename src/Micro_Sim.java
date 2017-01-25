@@ -2,6 +2,8 @@
  * Created by Ecoste on 1/23/2017.
  */
 import processing.core.*;
+
+import java.awt.geom.Point2D;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,7 +19,7 @@ public class Micro_Sim extends PApplet{
     }
 
     public void start() {
-        AddGameObject(new Organism(this));
+        AddGameObject(new Organism(this, new Point2D.Float(200, 200)));
     }
 
     public void draw() {
