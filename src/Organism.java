@@ -32,7 +32,7 @@ public class Organism extends GameObject {
     }
 
     public void Start() {
-
+        tag = "Organism";
     }
 
     public void AddDriver() {
@@ -65,5 +65,9 @@ public class Organism extends GameObject {
 
     public void Rotate(float x) {
         rotateTo += x;
+    }
+
+    public void OnCollisionEnter(GameObject other) {
+        System.out.println(other.tag);
     }
 }

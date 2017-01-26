@@ -7,9 +7,11 @@ import java.awt.geom.Point2D;
 abstract public class GameObject {
     abstract public void Update();
     abstract public void Start();
+    abstract public void OnCollisionEnter(GameObject other);
     float rotation = 0;
 
     Point2D.Float position = new Point2D.Float(0, 0);
+    Point2D.Float size = new Point2D.Float(0, 0);
     GameObject parent = null;
     Micro_Sim processing;
     String tag = "untagged";
@@ -34,7 +36,11 @@ abstract public class GameObject {
         return position;
     }
 
-    void OnCollisionEnter() {
-
+    public void CheckCollision(GameObject other) {
+        //Lazy circular collision detection for now.
+        if (Math.abs(other.GetGlobalPosition().x - GetGlobalPosition().x) < size.x && Math.abs(other.GetGlobalPosition().y - GetGlobalPosition().y) < size.y) {
+            OnCollisionEnter(other);
+            other.OnCollisionEnter(this);
+        }
     }
 }

@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Micro_Sim extends PApplet{
-    Vector<GameObject> gameObjects = new Vector<>();
+    public Vector<GameObject> gameObjects = new Vector<>();
 
     public static void main(String... args){
         PApplet.main("Micro_Sim");
@@ -20,6 +20,10 @@ public class Micro_Sim extends PApplet{
 
     public void start() {
         AddGameObject(new Organism(this, new Point2D.Float(200, 200)));
+
+        for(int i = 0; i < 20; i++) {
+            AddGameObject(new Food(this));
+        }
     }
 
     public void draw() {
