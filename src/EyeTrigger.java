@@ -29,16 +29,20 @@ public class EyeTrigger extends Trigger {
             return;
         }
 
+        /*
+            Checks if a food object is in front of the eye component (using dot product of 2 vectors) and within the radius and triggers the parent if it is.
+         */
+
         GameObject organism = ((GameObject)parent).parent;
         float orgRotRadians = processing.radians(organism.rotation % 360);
-        Point2D.Float orgDirection = Helper.radiansToVector(orgRotRadians);
+        Point2D.Float orgDirection = Helper.radiansToVector(orgRotRadians); //Get organism's forward direction in a normalized vector.
 
-        List<GameObject> food = processing.gameObjects.stream().filter(g -> g instanceof Food).collect(Collectors.toList());
+        List<GameObject> food = processing.gameObjects.stream().filter(g -> g instanceof Food).collect(Collectors.toList()); //Get all the food objects.
         for (GameObject g : food) {
-            Point2D.Float difference = new Point2D.Float(organism.GetGlobalPosition().x - g.GetGlobalPosition().x, organism.GetGlobalPosition().y - g.GetGlobalPosition().y);
-            difference = Helper.normalized(difference);
+            Point2D.Float difference = new Point2D.Float(organism.GetGlobalPosition().x - g.GetGlobalPosition().x, organism.GetGlobalPosition().y - g.GetGlobalPosition().y); //Get difference vector between organism and the food.
+            difference = Helper.normalized(difference); //Normalize the difference so that we're working with direction.
 
-            if (Helper.vectorDot(orgDirection, difference) * -1 > dotProductRange && g.GetGlobalPosition().distance(organism.GetGlobalPosition()) < radius) {
+            if (Helper.vectorDot(orgDirection, difference) * -1 > dotProductRange && g.GetGlobalPosition().distance(organism.GetGlobalPosition()) < radius) { //Check if the dot product is within the range(if we're facing the food) and if it's within the radius and then trigger.
                 parent.Trigger();
                 break;
             }
