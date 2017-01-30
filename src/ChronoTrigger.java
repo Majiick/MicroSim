@@ -5,17 +5,15 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ChronoTrigger extends Trigger{
-    Timer timer = new Timer();
+    //Timer timer = new Timer();
     int interval;
 
     ChronoTrigger(IComponent parent, Micro_Sim processing) {
         super(parent, processing);
-        interval = ThreadLocalRandom.current().nextInt(10, 300 + 1);
-        Start();
     }
 
     public void Start() {
-        //timer.scheduleAtFixedRate(new ChronoTask(), 0, 1000);
+        interval = ThreadLocalRandom.current().nextInt(10, 300 + 1);
     }
 
     private class ChronoTask extends TimerTask {

@@ -5,6 +5,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.awt.geom.Point2D;
 
 public class Food extends GameObject{
+    public boolean consumed = false;
+
     Food(Micro_Sim processing) {
         super(processing);
         position = new Point2D.Float((float)ThreadLocalRandom.current().nextInt(200, processing.width - 200), ThreadLocalRandom.current().nextInt(200, processing.height - 200));
@@ -21,6 +23,6 @@ public class Food extends GameObject{
     }
 
     public void OnCollisionEnter(GameObject other) {
-
+        Delete();
     }
 }

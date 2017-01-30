@@ -3,10 +3,11 @@
  */
 import java.awt.geom.Point2D;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Driver extends GameObject implements IComponent {
-
     Vector<Trigger> triggers = new Vector<>();
+    float distance = 0;
 
     Driver(Micro_Sim processing, GameObject parent) {
         super(processing);
@@ -14,9 +15,15 @@ public class Driver extends GameObject implements IComponent {
     }
 
     public void Start() {
-        triggers.add(new ChronoTrigger(this, processing));
+        if (Helper.PercentageChance(80)) {
+            triggers.add(new EyeTrigger(this, processing));
+        } else {
+            triggers.add(new ChronoTrigger(this, processing));
+        }
+
         size = new Point2D.Float(5, 5);
         tag = "Driver";
+        distance = ThreadLocalRandom.current().nextInt(10, 120);
     }
 
     public void Update() {
@@ -34,7 +41,7 @@ public class Driver extends GameObject implements IComponent {
     }
 
     public void Trigger() {
-        ((Organism)parent).Move(0, 20);
+        ((Organism)parent).Move(0, distance);
     }
 
     public void OnCollisionEnter(GameObject other) {

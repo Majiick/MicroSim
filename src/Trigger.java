@@ -8,6 +8,8 @@ abstract public class Trigger {
     Trigger(IComponent parent, Micro_Sim processing) {
         this.parent = parent;
         this.processing = processing;
+
+        Start();
     }
 
     abstract public void Start();

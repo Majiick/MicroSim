@@ -49,6 +49,8 @@ public class Cytoplasm extends GameObject implements IComponent{
     }
 
     public void OnCollisionEnter(GameObject other) {
-        System.out.println(other.tag);
+        if (other.tag == "Food" && !((Food)other).consumed) {
+            ((Food)other).consumed = true;
+        }
     }
 }

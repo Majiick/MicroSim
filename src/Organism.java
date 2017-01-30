@@ -3,12 +3,14 @@
  */
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Organism extends GameObject {
 
     Point2D.Float moveTo = new Point2D.Float(0, 0);
     float rotateTo = 0;
     Grid grid = new Grid(new Point(7, 7), this);
+    int points = 0;
 
     Organism(Micro_Sim processing) {
         super(processing);
@@ -21,6 +23,7 @@ public class Organism extends GameObject {
         moveTo = position;
         rotation = 20;
     }
+
 
     public void Update() {
         Point2D.Float newLoc = new Point2D.Float(0, 0);
@@ -36,19 +39,11 @@ public class Organism extends GameObject {
     }
 
     public void AddDriver() {
-        GameObject driver = new Driver(processing, this);
-        processing.RemoveGameObject(grid.getContents().get(5).get(5));
-        grid.getContents().get(5).set(5, driver);
-        processing.AddGameObject(driver);
-        driver.SetPosition(new Point2D.Float(5 * 5, 5 * 5));
+        AddComponent(new Driver(processing, this));
     }
 
     public void AddRotator() {
-        GameObject rotator = new Rotator(processing, this);
-        processing.RemoveGameObject(grid.getContents().get(1).get(2));
-        grid.getContents().get(1).set(2, rotator);
-        processing.AddGameObject(rotator);
-        rotator.SetPosition(new Point2D.Float(1 * 5, 2 * 5));
+        AddComponent(new Rotator(processing, this));
     }
 
     public void Destroy() {
@@ -60,7 +55,7 @@ public class Organism extends GameObject {
     }
 
     public void Move(float degree, float magnitude) {
-        moveTo = new Point2D.Float(position.x + magnitude * (float)Math.cos(processing.radians(degree + rotateTo)), position.y + magnitude * (float)Math.sin(processing.radians(degree + rotateTo)));
+        moveTo = new Point2D.Float(position.x + magnitude * (float)Math.cos(processing.radians(degree + rotation)), position.y + magnitude * (float)Math.sin(processing.radians(degree + rotation)));
     }
 
     public void Rotate(float x) {
@@ -68,6 +63,16 @@ public class Organism extends GameObject {
     }
 
     public void OnCollisionEnter(GameObject other) {
-        System.out.println(other.tag);
+
+    }
+
+    void AddComponent(IComponent component) {
+        int x = ThreadLocalRandom.current().nextInt(0, grid.contents.size());
+        int y = ThreadLocalRandom.current().nextInt(0, grid.contents.size());
+
+        processing.RemoveGameObject(grid.getContents().get(x).get(y));
+        grid.getContents().get(1).set(2, (GameObject)component);
+        processing.AddGameObject((GameObject)component);
+        ((GameObject)component).SetPosition(new Point2D.Float(5 * x, 5 * y));
     }
 }
