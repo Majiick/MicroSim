@@ -17,7 +17,6 @@ public class Grid {
             for(int y = 0; y < size.y; y++) {
                 GameObject cytoplasm = new Cytoplasm(parent.processing, parent);
                 cytoplasm.SetPosition(new Point2D.Float(x * 5, y * 5));
-                //contents.get(x).add(cytoplasm);
                 contents[x][y] = cytoplasm;
                 parent.processing.AddGameObject(cytoplasm);
             }
