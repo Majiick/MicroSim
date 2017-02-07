@@ -3,11 +3,10 @@
  */
 import java.awt.Point;
 import java.awt.geom.Point2D;
-import java.util.*;
 
 public class Grid {
     Point size;
-    Vector<Vector<GameObject>> contents = new Vector<Vector<GameObject>>(); //Change this to an array
+    public GameObject[][] contents = new GameObject[7][7]; //Change this to an array
     GameObject parent;
 
     Grid(Point size, GameObject parent) {
@@ -15,26 +14,12 @@ public class Grid {
         this.parent = parent;
 
         for(int x = 0; x < size.x; x++) {
-            contents.add(new Vector<GameObject>());
-
             for(int y = 0; y < size.y; y++) {
                 GameObject cytoplasm = new Cytoplasm(parent.processing, parent);
                 cytoplasm.SetPosition(new Point2D.Float(x * 5, y * 5));
-                contents.get(x).add(cytoplasm);
+                //contents.get(x).add(cytoplasm);
+                contents[x][y] = cytoplasm;
                 parent.processing.AddGameObject(cytoplasm);
-            }
-        }
-    }
-
-    Grid(Grid g) {
-        this.size = g.size;
-        this.parent = g.parent;
-
-        for(int x = 0; x < g.size.x; x++) {
-            contents.add(new Vector<GameObject>());
-
-            for(int y = 0; y < g.size.y; y++) {
-                contents.get(x).add(g.contents.get(x).get(y));
             }
         }
     }
@@ -44,7 +29,7 @@ public class Grid {
 
         for(int x = 0; x < size.x; x++) {
             for(int y = 0; y < size.y; y++) {
-                if(contents.get(x).get(y).tag.equals("Cytoplasm")) {
+                if(contents[y][y].tag.equals("Cytoplasm")) {
                     count++;
                 }
 
@@ -54,16 +39,35 @@ public class Grid {
         return count;
     }
 
-    public void disableContents() {
+    public void disableContents(Micro_Sim processing) {
         for(int x = 0; x < size.x; x++) {
             for(int y = 0; y < size.y; y++) {
-                contents.get(x).get(y).enabled = false;
-
+                contents[x][y].enabled = false;
+                processing.RemoveGameObject(contents[x][y]);
             }
         }
     }
 
-    Vector<Vector<GameObject>> getContents() {
+    public void enableContents(GameObject parent, Micro_Sim processing) {
+        for(int x = 0; x < size.x; x++) {
+            for(int y = 0; y < size.y; y++) {
+                contents[x][y].enabled = true;
+                contents[x][y].SetParent(parent);
+                processing.AddGameObject(contents[x][y]);
+            }
+        }
+    }
+
+
+    GameObject[][] getContents() {
         return contents;
+    }
+
+    public void PrintGrid() {
+        for(int x = 0; x < size.x; x++) {
+            for(int y = 0; y < size.y; y++) {
+                System.out.println("x: " + x + " y: " + y + " " + contents[x][y]);
+            }
+        }
     }
 }

@@ -9,11 +9,18 @@ public class EdgeTrigger extends Trigger {
 
     EdgeTrigger(IComponent parent, Micro_Sim processing) {
         super(parent, processing);
+        coolDownTime = ThreadLocalRandom.current().nextInt(60, 300);
+        coolDown = coolDownTime;
+    }
+
+    EdgeTrigger(IComponent parent, Micro_Sim processing, float coolDown) {
+        super(parent, processing);
+        this.coolDownTime = coolDown;
+        this.coolDown = coolDownTime;
     }
 
     public void Start() {
-        coolDownTime = ThreadLocalRandom.current().nextInt(60, 300);
-        coolDown = coolDownTime;
+
     }
 
     public void Update() {

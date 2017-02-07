@@ -4,7 +4,6 @@
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.*;
 
 public class Organism extends GameObject {
     static int idCounter = 0;
@@ -14,9 +13,13 @@ public class Organism extends GameObject {
     float rotateTo = 0;
     Grid grid = new Grid(new Point(7, 7), this);
     int points = 0;
-    List<State> states = new ArrayList<>();
-    //State lastState = null;
     MutationRates mRates;
+
+    PointRound pr = new PointRound();
+    class PointRound {
+        int points;
+        int round;
+    }
 
     Organism(Micro_Sim processing) {
         super(processing);
@@ -80,12 +83,11 @@ public class Organism extends GameObject {
     }
 
     void AddComponent(IComponent component) {
-        //Add cytoplasm back here.
-        int x = ThreadLocalRandom.current().nextInt(0, grid.contents.size());
-        int y = ThreadLocalRandom.current().nextInt(0, grid.contents.size());
+        int x = ThreadLocalRandom.current().nextInt(0, grid.size.x);
+        int y = ThreadLocalRandom.current().nextInt(0, grid.size.y);
 
-        processing.RemoveGameObject(grid.getContents().get(x).get(y));
-        grid.getContents().get(x).set(y, (GameObject)component);
+        processing.RemoveGameObject(grid.getContents()[x][y]);
+        grid.getContents()[x][y] = (GameObject)component;
         processing.AddGameObject((GameObject)component);
         ((GameObject)component).SetPosition(new Point2D.Float(5 * x, 5 * y));
     }
@@ -105,37 +107,19 @@ public class Organism extends GameObject {
         }
     }
 
-    public void newRound(int mutationRate) {
-//        if (lastState == null) {
-//            lastState = new State();
-//            lastState.grid = new Grid(grid);
-//            lastState.points = points;
-//        }
-//
-//
-        boolean reverted = false;
+    public void newRound(int mutationRate, XML xml) {
+        xml.SaveOrganism(this, processing.round);
 
-        if(states.size() > 0) {
-            State lastState = states.get(states.size() - 1);
-
-            if(points < lastState.points) {
-                System.out.println(id + " reverted back.");
-                //grid.disableContents();
-
-                grid = new Grid(lastState.grid); //this is broken
-                reverted = true;
-            }
+        if (pr.points < points) {
+            System.out.println(id + " went from " + pr.points + " to " + points);
+            pr.points = points;
+            pr.round = processing.round;
+        } else {
+            System.out.println(id + " reverted back to round " + pr.round + " because it got " + points + " instead of " + pr.points);
+            grid.disableContents(processing);
+            grid = xml.ReadInGrid(id, pr.round, this);
+            grid.enableContents(this, processing);
         }
-
-        State s = new State();
-        s.points = points;
-        s.grid = grid;
-        if (!reverted) {
-            states.add(s);
-        }
-
-        System.out.println("id " + id + " has " + grid.toString() + " cytoplasm.");
-        System.out.println("Round " + processing.round + " id " + id + " has " + points + " pts.");
 
         points = 0;
         position = new Point2D.Float(ThreadLocalRandom.current().nextInt(200, 800), ThreadLocalRandom.current().nextInt(200, 800));
@@ -145,9 +129,10 @@ public class Organism extends GameObject {
     public void addPoint() {
         points++;
     }
-//
-    private class State {
-        public int points;
-        public Grid grid;
+
+    public void test(XML xml) {
+        grid.disableContents(processing);
+        grid = xml.ReadInGrid(1, 3, this);
+        grid.enableContents(this, processing);
     }
 }

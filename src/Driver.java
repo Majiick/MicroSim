@@ -14,6 +14,12 @@ public class Driver extends GameObject implements IComponent {
         SetParent(parent);
     }
 
+    Driver(Micro_Sim processing, float distance) {
+        super(processing);
+        SetParent(parent);
+        this.distance = distance;
+    }
+
     public void Start() {
         if (Helper.PercentageChance(80)) {
             triggers.add(new EyeTrigger(this, processing));
@@ -23,7 +29,10 @@ public class Driver extends GameObject implements IComponent {
 
         size = new Point2D.Float(5, 5);
         tag = "Driver";
-        distance = ThreadLocalRandom.current().nextInt(10, 120);
+
+        if (distance == 0) {
+            distance = ThreadLocalRandom.current().nextInt(10, 120);
+        }
     }
 
     public void Update() {
@@ -48,5 +57,13 @@ public class Driver extends GameObject implements IComponent {
 
     public void OnCollisionEnter(GameObject other) {
 
+    }
+
+    public void AddTrigger(Trigger trigger) {
+        triggers.add(trigger);
+    }
+
+    public Vector<Trigger> getTriggers() {
+        return triggers;
     }
 }

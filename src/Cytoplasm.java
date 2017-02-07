@@ -1,10 +1,12 @@
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.Vector;
 
 /**
  * Created by Ecoste on 1/23/2017.
  */
 public class Cytoplasm extends GameObject implements IComponent{
+    Vector<Trigger> triggers = new Vector<>();
 
     Cytoplasm(Micro_Sim processing) {
         super(processing);
@@ -55,5 +57,9 @@ public class Cytoplasm extends GameObject implements IComponent{
             ((Food)other).consumed = true;
             ((Organism)parent).addPoint();
         }
+    }
+
+    public Vector<Trigger> getTriggers() {
+        return triggers;
     }
 }

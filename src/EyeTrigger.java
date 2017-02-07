@@ -7,20 +7,30 @@ import java.util.stream.Collectors;
  * Created by Ecoste on 1/30/2017.
  */
 public class EyeTrigger extends Trigger {
-    float radius;
-    float dotProductRange;
-    float coolDownTime;
+    float radius = 5;
+    float dotProductRange = 5;
+    float coolDownTime = 5;
     float coolDown;
+    boolean noRandom = false;
 
     EyeTrigger(IComponent parent, Micro_Sim processing) {
         super(parent, processing);
-    }
 
-    public void Start() {
         radius = ThreadLocalRandom.current().nextInt(200, 800);
         coolDownTime = ThreadLocalRandom.current().nextInt(10, 100);
         dotProductRange = Helper.randomRange(0.6f, 0.95f);
         coolDown = coolDownTime;
+    }
+
+    EyeTrigger(IComponent parent, Micro_Sim processing, float radius, float dotProductRange, float coolDownTime) {
+        super(parent, processing);
+        this.radius = radius;
+        this.dotProductRange = dotProductRange;
+        this.coolDownTime = coolDownTime;
+    }
+
+    public void Start() {
+
     }
 
     public void Update() {

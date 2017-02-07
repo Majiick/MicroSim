@@ -10,10 +10,16 @@ public class ChronoTrigger extends Trigger{
 
     ChronoTrigger(IComponent parent, Micro_Sim processing) {
         super(parent, processing);
+        interval = ThreadLocalRandom.current().nextInt(10, 300 + 1);
+    }
+
+    ChronoTrigger(IComponent parent, Micro_Sim processing, int interval) {
+        super(parent, processing);
+        this.interval = interval;
     }
 
     public void Start() {
-        interval = ThreadLocalRandom.current().nextInt(10, 300 + 1);
+
     }
 
     private class ChronoTask extends TimerTask {

@@ -14,7 +14,7 @@ public class Micro_Sim extends PApplet{
     final int roundDuration = 1800;
     int roundCooldown = 0;
     public List<GameObject> gameObjects = new ArrayList<>();
-    XML xml = new XML();
+    XML xml = new XML(this);
 
     public static void main(String... args){
         PApplet.main("Micro_Sim");
@@ -63,18 +63,6 @@ public class Micro_Sim extends PApplet{
         gameObjects.remove(x);
     }
 
-    @Override
-    public void keyPressed() {
-        List<GameObject> organisms = gameObjects.stream().filter(g -> g instanceof Organism).collect(Collectors.toList());
-//        organisms.forEach(g -> ((Organism) g).AddDriver());
-//        organisms.forEach(g -> ((Organism) g).AddRotator());
-//        organisms.forEach(g -> ((Organism) g).AddDriver());
-//        organisms.forEach(g -> ((Organism) g).AddRotator());
-//        organisms.forEach(g -> ((Organism) g).AddDriver());
-//        organisms.forEach(g -> ((Organism) g).AddRotator());
-        xml.SaveOrganism((Organism)organisms.get(2));
-    }
-
     void NextRound() {
         round++;
         roundCooldown = roundDuration;
@@ -86,7 +74,7 @@ public class Micro_Sim extends PApplet{
 
         List<GameObject> organisms = gameObjects.stream().filter(g -> g instanceof Organism).collect(Collectors.toList());
         for(GameObject g : organisms) {
-            ((Organism)g).newRound(mutationRate);
+            ((Organism)g).newRound(mutationRate, xml);
         }
     }
 

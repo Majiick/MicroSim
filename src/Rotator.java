@@ -12,6 +12,13 @@ public class Rotator extends GameObject implements IComponent {
     Rotator(Micro_Sim processing, GameObject parent) {
         super(processing);
         SetParent(parent);
+        angle = ThreadLocalRandom.current().nextInt(-180, 180);
+    }
+
+    Rotator(Micro_Sim processing, float angle) {
+        super(processing);
+        SetParent(parent);
+        this.angle = angle;
     }
 
     public void Start() {
@@ -23,7 +30,6 @@ public class Rotator extends GameObject implements IComponent {
 
         size = new Point2D.Float(5, 5);
         tag = "rotator";
-        angle = ThreadLocalRandom.current().nextInt(-180, 180);
     }
 
     public void Update() {
@@ -48,5 +54,13 @@ public class Rotator extends GameObject implements IComponent {
 
     public void OnCollisionEnter(GameObject other) {
 
+    }
+
+    public Vector<Trigger> getTriggers() {
+        return triggers;
+    }
+
+    public void AddTrigger(Trigger trigger) {
+        triggers.add(trigger);
     }
 }
