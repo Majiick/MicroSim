@@ -10,6 +10,7 @@ abstract public class GameObject {
     abstract public void OnCollisionEnter(GameObject other);
     float rotation = 0;
     boolean toBeDeleted = false;
+    public boolean enabled = true;
 
     Point2D.Float position = new Point2D.Float(0, 0);
     Point2D.Float size = new Point2D.Float(0, 0);

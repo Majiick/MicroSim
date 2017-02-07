@@ -18,7 +18,7 @@ public class EyeTrigger extends Trigger {
 
     public void Start() {
         radius = ThreadLocalRandom.current().nextInt(200, 800);
-        coolDownTime = ThreadLocalRandom.current().nextInt(60, 200);
+        coolDownTime = ThreadLocalRandom.current().nextInt(10, 100);
         dotProductRange = Helper.randomRange(0.6f, 0.95f);
         coolDown = coolDownTime;
     }
@@ -44,6 +44,7 @@ public class EyeTrigger extends Trigger {
 
             if (Helper.vectorDot(orgDirection, difference) * -1 > dotProductRange && g.GetGlobalPosition().distance(organism.GetGlobalPosition()) < radius) { //Check if the dot product is within the range(if we're facing the food) and if it's within the radius and then trigger.
                 parent.Trigger();
+                coolDown = coolDownTime;
                 break;
             }
         }

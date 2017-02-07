@@ -27,6 +27,8 @@ public class Driver extends GameObject implements IComponent {
     }
 
     public void Update() {
+        if (!enabled) return;
+
         processing.pushMatrix();
         processing.translate(parent.position.x + 17, parent.position.y + 17);
         processing.rotate(processing.radians(parent.rotation + rotation));

@@ -21,6 +21,8 @@ public class Cytoplasm extends GameObject implements IComponent{
     }
 
     public void Update() {
+        if (!enabled) return;
+
         //This is a bit wonky but I'm not too familiar with processing.
         processing.pushMatrix();
         processing.translate(parent.position.x + 17, parent.position.y + 17);
@@ -51,6 +53,7 @@ public class Cytoplasm extends GameObject implements IComponent{
     public void OnCollisionEnter(GameObject other) {
         if (other.tag == "Food" && !((Food)other).consumed) {
             ((Food)other).consumed = true;
+            ((Organism)parent).addPoint();
         }
     }
 }
