@@ -93,7 +93,7 @@ public class XML {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("C:\\Users\\Ecoste\\IdeaProjects\\MicroSim\\organisms.xml"));
+            StreamResult result = new StreamResult(new File(filepath));
 
             transformer.transform(source, result);
         } catch (TransformerException tfe) {

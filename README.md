@@ -33,3 +33,6 @@ The states are all saved in an .xml file as way of serializing the grid states s
     - The constructors on the triggers are a mess.
     - IComponent should be an abstract class instead of an interface.
     - Speaking of which, IComponent should be named just Component. -> http://stackoverflow.com/questions/2814805/java-interfaces-implementation-naming-convention
+    - I feel like all the casting to specific class types in the XML class is a wrong way to get information out of the classes.
+    - XML might need to be split into 2 classes, 1 for reading and one for writing.
+    - Inconsistance between using getters/setters vs just making a field public.
