@@ -129,10 +129,4 @@ public class Organism extends GameObject {
     public void addPoint() {
         points++;
     }
-
-    public void test(XML xml) {
-        grid.disableContents(processing);
-        grid = xml.ReadInGrid(1, 3, this);
-        grid.enableContents(this, processing);
-    }
 }

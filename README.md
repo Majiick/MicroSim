@@ -31,3 +31,5 @@ The states are all saved in an .xml file as way of serializing the grid states s
     - I feel like there's a way to cut a lot of boilerplate in XML, but can't put my finger on it.
     - Especially smelly code in XML with the switches on instanceof and using the enums.
     - The constructors on the triggers are a mess.
+    - IComponent should be an abstract class instead of an interface.
+    - Speaking of which, IComponent should be named just Component. -> http://stackoverflow.com/questions/2814805/java-interfaces-implementation-naming-convention
