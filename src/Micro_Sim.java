@@ -27,7 +27,7 @@ public class Micro_Sim extends PApplet{
     public void start() {
         frameRate(1000);
 
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 5; i++) {
             AddGameObject(new Organism(this, new Point2D.Float(ThreadLocalRandom.current().nextInt(200, 800), ThreadLocalRandom.current().nextInt(200, 800))));
         }
         NextRound();
@@ -35,6 +35,7 @@ public class Micro_Sim extends PApplet{
 
     public void draw() {
         background(0);
+        frameRate(1000);
 
         roundCooldown--;
         if (roundCooldown <= 0) {
@@ -48,7 +49,7 @@ public class Micro_Sim extends PApplet{
         gameObjects.forEach((gameObject) -> gameObject.Update());
         gameObjects = gameObjects.stream().filter(g -> !g.toBeDeleted).collect(Collectors.toList());
 
-        if(frameCount % 5 == 0) {
+        if(frameCount % 20 == 0) {
             AddGameObject(new Food(this));
         }
     }
