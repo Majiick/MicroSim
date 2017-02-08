@@ -48,16 +48,7 @@ public class XML {
 
 
     public void SaveOrganism(Organism organism, int round) {
-        //Document doc = docBuilder.newDocument();
-        Document doc = null;
-        try {
-            doc = docBuilder.parse(filepath);
-        } catch (java.io.IOException e) {
-            doc = docBuilder.newDocument();
-            doc.appendChild(doc.createElement("organisms"));
-        } catch (org.xml.sax.SAXException e) {
-            System.out.println(e.getMessage());
-        }
+        Document doc = OpenDoc();
 
         Element rootElement = (Element)doc.getFirstChild();
         NodeList organisms = rootElement.getElementsByTagName("organism");
@@ -216,22 +207,12 @@ public class XML {
     public Grid ReadInGrid(int id, int iteration, GameObject parent) {
         Grid grid = new Grid(new Point(7, 7), parent);
 
-        Document doc = null;
-        try {
-            doc = docBuilder.parse(filepath);
-        } catch (java.io.IOException e) {
-            doc = docBuilder.newDocument();
-            doc.appendChild(doc.createElement("organisms"));
-        } catch (org.xml.sax.SAXException e) {
-            System.out.println(e.getMessage());
-        }
+        Document doc = OpenDoc();
 
-        //Element rootElement = (Element)doc.getFirstChild();
         NodeList organisms = doc.getElementsByTagName("organism");
         Element organism = null;
         for (int i = 0; i < organisms.getLength(); i++) {
             organism = (Element)organisms.item(i);
-            //System.out.println(organism.getAttribute("id"));
             if (Integer.parseInt(organism.getAttribute("id")) == id) {
                 break;
             }
@@ -252,14 +233,25 @@ public class XML {
                 processing.RemoveGameObject(grid.getContents()[x][y]);
                 GameObject component = ReadInComponent(eGrid, x, y);
                 grid.contents[x][y] = component;
-                //System.out.println(grid.contents[x][y].tag);
-                //grid.getContents().get(x).set(y, (GameObject)component);
-                //processing.AddGameObject((GameObject)component);
                 component.SetPosition(new Point2D.Float(5 * x, 5 * y));
             }
         }
-        //grid.PrintGrid();
+
         return grid;
+    }
+
+    Document OpenDoc() {
+        Document doc = null;
+        try {
+            doc = docBuilder.parse(filepath);
+        } catch (java.io.IOException e) {
+            doc = docBuilder.newDocument();
+            doc.appendChild(doc.createElement("organisms"));
+        } catch (org.xml.sax.SAXException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return doc;
     }
 
     GameObject ReadInComponent(Element grid, int x, int y) {

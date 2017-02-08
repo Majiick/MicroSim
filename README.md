@@ -1,6 +1,5 @@
-https://www.youtube.com/watch?v=7j_amXT9Hwc
-
 [![Video](http://img.youtube.com/vi/7j_amXT9Hwc/0.jpg)](https://www.youtube.com/watch?v=7j_amXT9Hwc)
+^ youtube vid
 
 # Explanation
 This is a simulation of microorganisms that evolve in order to collect as much food as possible every round.
@@ -25,3 +24,10 @@ The states are all saved in an .xml file as way of serializing the grid states s
     - Lambas and filters used on collections.
     - I/O and serialization done through saving organism states to an XML file.
     - The class structure is pretty bad and messy.
+    - Some duplicated code in classes extending IComponent.
+    - Start() in triggers isn't used, should be but there's a kerfuffle with the constructors.
+    - XML class should be a singleton.
+    - There should be a global static singleton Info class or whatever that I can get an instance of processing from, instead of passing it around everywhere.
+    - I feel like there's a way to cut a lot of boilerplate in XML, but can't put my finger on it.
+    - Especially smelly code in XML with the switches on instanceof and using the enums.
+    - The constructors on the triggers are a mess.
